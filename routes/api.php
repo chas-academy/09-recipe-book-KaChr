@@ -18,8 +18,5 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'], function() {
     Route::post('register', 'AuthController@register');
     Route::get('user', 'AuthController@user');
     Route::get('refresh', 'AuthController@refresh');
-
-    // Route:resource('recipe', 'RecipeController');
-    // Route:resource('lists', '');
-    // Route:resource('ingredients', '');
+    Route::post('recover', 'AuthController@recover');
 });
