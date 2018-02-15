@@ -20,3 +20,6 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'], function() {
     Route::get('refresh', 'AuthController@refresh');
     Route::post('recover', 'AuthController@recover');
 });
+
+Route::get('recipe', 'RecipeController@index');
+Route::get('recipe/{id}', 'RecipeController@show');

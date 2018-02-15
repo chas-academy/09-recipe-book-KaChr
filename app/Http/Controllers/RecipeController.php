@@ -4,9 +4,29 @@ namespace App\Http\Controllers;
 
 use App\Recipe;
 use Illuminate\Http\Request;
+use GuzzleHttp\Client as GuzzleHttpClient;
+use GuzzleHttp\Promise;
+use Psr\Http\Message\ResponseInterface;
+use GuzzleHttp\Exception\RequestException;
 
 class RecipeController extends Controller
 {
+    private $yummly;
+    
+    public function __construct() {
+        $this->middleware('auth:api');
+        $this->yummly = new GuzzleHttpClient([
+            'base_uri' => 'https://api.yummly.com/v1/api/',
+            'headers'  => [
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+                'Accept-Encoding' => 'gzip',
+                'X-Yummly-App-ID' => env('YUMMLY_APP_ID'),
+                'X-Yummly-App-Key' => env('YUMMLY_APP_KEY'),
+            ],
+        ]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,28 +34,21 @@ class RecipeController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $promise = $this->yummly->getAsync('recipes?q=pasta')->then(
+            function(ResponseInterface $response) {
+               return json_decode((string) $response->getBody()->getContents(), true);
+            },
+            function(RequestException $exception) {
+                return json_decode((string) $exception->getBody()->getContents(), true);
+            }
+        );
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+        $response = $promise->wait();
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+        return response([
+            'status' => 'success',
+            'data' => $response
+        ]);
     }
 
     /**
@@ -44,42 +57,22 @@ class RecipeController extends Controller
      * @param  \App\Recipe  $recipe
      * @return \Illuminate\Http\Response
      */
-    public function show(Recipe $recipe)
+    public function show(Request $request, $id)
     {
-        //
-    }
+        $promise = $this->yummly->getAsync('recipe/' . $id)->then(
+            function(ResponseInterface $response) {
+               return json_decode((string) $response->getBody()->getContents(), true);
+            },
+            function(RequestException $exception) {
+                return json_decode((string) $exception->getBody()->getContents(), true);
+            }
+        );
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Recipe  $recipe
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Recipe $recipe)
-    {
-        //
-    }
+        $response = $promise->wait();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Recipe  $recipe
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Recipe $recipe)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Recipe  $recipe
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Recipe $recipe)
-    {
-        //
+        return response([
+            'status' => 'success',
+            'data' => $response
+        ]);
     }
 }
