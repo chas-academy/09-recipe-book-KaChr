@@ -21,5 +21,10 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'], function() {
     Route::post('recover', 'AuthController@recover');
 });
 
-Route::get('recipe', 'RecipeController@index');
-Route::get('recipe/{id}', 'RecipeController@show');
+Route::get('list', 'RecipeListController@index');
+Route::get('list/{recipeList}', 'RecipeListController@show');
+Route::post('list', 'RecipeListController@store');
+Route::put('list/{recipeList}', 'RecipeListController@update');
+
+Route::get('user/{user}/lists', 'RecipeListController@getListsByUser');
+Route::delete('user/{userId}/lists/{recipeListId}', 'RecipeListController@destroy');

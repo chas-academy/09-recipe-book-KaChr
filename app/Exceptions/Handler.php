@@ -46,8 +46,29 @@ class Handler extends ExceptionHandler
      * @param  \Exception  $exception
      * @return \Illuminate\Http\Response
      */
-    public function render($request, Exception $exception)
+    public function render($request, Exception $e)    
     {
+        if ($request->wantsJson() && !($e instanceof ValidationException)) {
+            $response = [
+                'message' => (string)$e->getMessage(),
+                'status_code' => 400,
+            ];
+
+            if ($e instanceof HttpException) {
+                $response['message'] = Response::$statusTexts[$e->getStatusCode()];
+                $response['status_code'] = $e->getStatusCode();
+            } else if ($e instanceof ModelNotFoundException) {
+                $response['message'] = Response::$statusTexts[Response::HTTP_NOT_FOUND];
+                $response['status_code'] = Response::HTTP_NOT_FOUND;
+            }
+    
+            return response()->json([
+                'status'      => 'failed',
+                'status_code' => $response['status_code'],
+                'message'     => $response['message'],
+            ], $response['status_code']);
+        }
+
         return parent::render($request, $exception);
     }
 }
