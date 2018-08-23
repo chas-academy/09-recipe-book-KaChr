@@ -32,3 +32,4 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 .env
+/recipe-frontend/package-lock.json
