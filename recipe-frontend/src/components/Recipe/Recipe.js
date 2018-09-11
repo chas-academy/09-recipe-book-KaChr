@@ -1,4 +1,7 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+
+import { Link } from 'react-router-dom';
+
 
 export default class Recipe extends Component {
   constructor(props) {
@@ -14,10 +17,10 @@ export default class Recipe extends Component {
   fetchRecipe(recipeId) {
     let yummlyAppKey = process.env.REACT_APP_YUMMLY_APP_KEY;
     let yummlyAppId = process.env.REACT_APP_YUMMLY_APP_ID;
+    
     return fetch(`http://api.yummly.com/v1/api/recipe/${recipeId}?_app_id=${yummlyAppId}&_app_key=${yummlyAppKey}`)
       .then(res => res.json())
       .then(res => {
-        console.log(res);
         this.setState({
           recipe: res
         });
@@ -41,13 +44,15 @@ export default class Recipe extends Component {
   render() {
     const { recipe } = this.state;
     let recipeContent;
-    console.log(this.props.recipeId)
 
     if (recipe) {
       recipeContent = (
         <div>
+          <Link to={{ pathname: `/recipe/${recipe.id}`, state: { recipe: recipe.recipeName } }}>
           <h4>{recipe.name}</h4>
           <img src={recipe.images[0].hostedMediumUrl} alt={recipe.name} />
+          </Link>
+
           <button type="button" className="btn btn-danger">Remove recipe from list</button>
         </div>
       );

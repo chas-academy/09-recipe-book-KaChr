@@ -4,6 +4,7 @@ import './App.css';
 
 import { Header, Home, Login, Register, PageNotFound } from './components';
 import RecipeList from './components/RecipeList/RecipeList';
+import RecipeDetails from './components/RecipeDetails/RecipeDetails';
 
 class App extends Component {
   render() {
@@ -16,6 +17,7 @@ class App extends Component {
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/lists" component={RecipeList} />
+            <Route path="/recipe/:id" component={RecipeDetails} />
 
             {/*
             <Route path="/lists/:id" component={Lists} />

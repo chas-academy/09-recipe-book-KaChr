@@ -1,5 +1,7 @@
 import React, {Component} from'react';
 
+import { Link } from "react-router-dom";
+
 
 class SearchResult extends Component {
   constructor(props) {
@@ -9,10 +11,12 @@ class SearchResult extends Component {
   render() {
     const {result} = this.props;
       return (
-        <div  className="card card--width">
-          <img src={result.smallImageUrls[0]} alt={result.recipeName} className="image--height" />
-          <h5>{result.recipeName}</h5>
-        </div>
+        <Link to={{ pathname: `/recipe/${result.id}`, state: { result: result.recipeName } }}>
+          <div  className="card card--width">
+            <img src={result.smallImageUrls[0]} alt={result.recipeName} className="image--height" />
+            <h5>{result.recipeName}</h5>
+          </div>
+        </Link>
       );
   }
 }

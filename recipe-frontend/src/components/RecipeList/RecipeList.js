@@ -30,7 +30,6 @@ class RecipeList extends Component {
   });
 }
 
-
 handleClick(index, clickedList) {
 
   this.setState({
@@ -51,16 +50,6 @@ render() {
        {this.state.activeList ? this.state.activeList.recipes.map((recipe, i) => {
          return <Recipe recipeId={recipe} key={i} onClick={this.onClick}/>
        }): 'Fetching recipe lists...'}
-       
-       
-       {/*
-       {lists.map(list =>
-        list.recipes.map((recipeId, i) =>
-           <Recipe recipeId={recipeId} key={i} onClick={this.onClick}/>
-        )
-      )}
-    */}
-      {/* <p>Let's do this!</p> */}
     </div>
   );
   }
