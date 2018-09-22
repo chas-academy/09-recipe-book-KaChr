@@ -1,7 +1,4 @@
-.card--width {
-  width: 8rem;
-}
-
-.image--height {
-  height: 8rem;
+.Search {
+  justify-content: center;
+  padding: 25px 0;
 }

@@ -1,47 +1,53 @@
-import React, { Component } from 'react'
-import './Search.css';
-
+import React, { Component } from "react";
+import "./Search.css";
 
 class Search extends Component {
   constructor() {
     super();
     this.state = {
-      searchText: ''
+      searchText: ""
     };
 
     this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
   }
 
-  onChange (e) {
-      this.setState({
-          searchText: e.target.value
-      });
+  onChange(e) {
+    this.setState({
+      searchText: e.target.value
+    });
   }
 
-  onSubmit (e) {
-      e.preventDefault();
-      this.props.onSearch(this.query.value);
-      
-      this.setState({
-        searchText: ''
-      });
+  onSubmit(e) {
+    e.preventDefault();
+    this.props.onSearch(this.query.value);
+
+    this.setState({
+      searchText: ""
+    });
   }
 
   render() {
-      return(
-          <form  className="form-inline my-2 my-lg-0" name="searchForm" onSubmit={this.onSubmit}>
-              <input 
-                  value={this.state.searchText}
-                  className="form-control mr-sm-2"
-                  type="text"
-                  onChange={this.onChange}
-                  name="search"
-                  ref={(input) => this.query = input}
-                  placeholder="Search..." />
-              <button className="btn btn-success my-2 my-sm-0" type="submit">Go!</button>
-          </form>
-      );
+    return (
+      <form
+        className="form-inline my-2 my-lg-0 Search"
+        name="searchForm"
+        onSubmit={this.onSubmit}
+      >
+        <input
+          value={this.state.searchText}
+          className="form-control mr-sm-2"
+          type="text"
+          onChange={this.onChange}
+          name="search"
+          ref={input => (this.query = input)}
+          placeholder="Search..."
+        />
+        <button className="btn btn-success my-2 my-sm-0" type="submit">
+          Go!
+        </button>
+      </form>
+    );
   }
 }
 

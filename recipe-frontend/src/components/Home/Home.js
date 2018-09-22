@@ -1,26 +1,44 @@
-import React, { Component } from 'react';
-import Search from '../Search/Search';
-import SearchResult from '../SearchResult/SearchResult';
+import React, { Component } from "react";
+import "./Home.css";
+
+import Search from "../Search/Search";
+import SearchResults from "../SearchResults/SearchResults";
+import SearchFilter from "../SearchFilter/SearchFilter";
 
 class Home extends Component {
   constructor() {
     super();
     this.state = {
-      results: []
+      results: [],
+      query: "cherry pie"
     };
 
     this.searchRecipe = this.searchRecipe.bind(this);
+    this.filterResults = this.filterResults.bind(this);
   }
 
   componentDidMount() {
-    this.searchRecipe();
+    this.searchRecipe("cherry pie");
   }
 
-  searchRecipe(query = 'cherry pie') {
+  handleQueryChange(query) {
+    this.setState({
+      query: query
+    });
+  }
+
+  searchRecipe(query, searchFilters = null) {
     let yummlyAppKey = process.env.REACT_APP_YUMMLY_APP_KEY;
     let yummlyAppId = process.env.REACT_APP_YUMMLY_APP_ID;
-  
-    fetch(`http://api.yummly.com/v1/api/recipes?_app_id=${yummlyAppId}&_app_key=${yummlyAppKey}&q=${query}`)
+    let yummlyAPIRoot = `http://api.yummly.com/v1/api/recipes?_app_id=${yummlyAppId}&_app_key=${yummlyAppKey}`;
+    let fetchURL;
+    let filterString;
+
+    fetchURL = searchFilters
+      ? `${yummlyAPIRoot}&q=${query}&${searchFilters}`
+      : `${yummlyAPIRoot}&q=${query}`;
+
+    fetch(fetchURL)
       .then(res => res.json())
       .then(res => {
         this.setState({
@@ -31,17 +49,39 @@ class Home extends Component {
         console.error(err);
       });
   }
- 
+
+  filterResults(filters) {
+    const { results } = this.state;
+
+    if (results.length === 0) {
+      return;
+    }
+
+    let activeFilters = filters
+      .filter(f => f.checked)
+      .map(af => {
+        if (af.type === "diet") {
+          return `allowedDiet[]=${af.tag}`;
+        } else if (af.type === "course") {
+          return `allowedCourse[]=${af.tag}`;
+        }
+      })
+      .join("&");
+
+    this.searchRecipe(this.state.query, activeFilters);
+  }
+
   render() {
     return (
       <div>
-        <Search onSearch = {this.searchRecipe} />
-        {this.state.results.length ? 
-          this.state.results.map((result, index) => {
-            return <SearchResult key={index} result={result} />;
-          })
-          :''
-        }
+        <Search
+          onSearch={this.searchRecipe}
+          onChange={this.handleQueryChange}
+          query={this.state.query}
+        />
+        <SearchFilter filterChanged={this.filterResults}>
+          <SearchResults results={this.state.results} />
+        </SearchFilter>
       </div>
     );
   }
