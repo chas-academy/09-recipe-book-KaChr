@@ -1,0 +1,27 @@
+h1 {
+  font-family: "Times New Roman", Times, serif;
+}
+
+h6{
+  font-family: "Times New Roman", Times, serif;
+  font-style: italic;
+}
+
+ul {
+  flex-direction: column;
+}
+
+.img--detail {
+  border-radius: 2%;
+}
+
+@media screen and (max-width: 600px){
+  .button--detail-group {
+    float: none;
+    width: 100%;
+  }
+
+  .img--detail {
+    border-radius: 2%;
+  }
+}

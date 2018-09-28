@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Filter from "./Filter/Filter";
+import './SearchFilter.css';
 
 class SearchFilter extends Component {
   constructor() {
@@ -83,14 +84,14 @@ class SearchFilter extends Component {
     const { filters } = this.state;
 
     return (
-      <div>
+      <div className="filter--detail">
         <legend>Allergy or preference:</legend>
-        <legend>Type of dish:</legend>
 
         {filters.map((filter, index) => {
           if (index < 6) {
             return (
               <Filter
+                key={index}
                 className="form-check-input"
                 type={"checkbox"}
                 checked={filter.checked}
@@ -102,6 +103,7 @@ class SearchFilter extends Component {
           } else {
             return (
               <Filter
+                key={index}
                 className="form-check-input"
                 type={"radio"}
                 checked={filter.checked}

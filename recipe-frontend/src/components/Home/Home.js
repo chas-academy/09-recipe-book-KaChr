@@ -32,7 +32,6 @@ class Home extends Component {
     let yummlyAppId = process.env.REACT_APP_YUMMLY_APP_ID;
     let yummlyAPIRoot = `http://api.yummly.com/v1/api/recipes?_app_id=${yummlyAppId}&_app_key=${yummlyAppKey}`;
     let fetchURL;
-    let filterString;
 
     fetchURL = searchFilters
       ? `${yummlyAPIRoot}&q=${query}&${searchFilters}`
@@ -65,6 +64,7 @@ class Home extends Component {
         } else if (af.type === "course") {
           return `allowedCourse[]=${af.tag}`;
         }
+        return false;
       })
       .join("&");
 

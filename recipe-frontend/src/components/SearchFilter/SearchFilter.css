@@ -1,0 +1,11 @@
+@media screen and (max-width: 600px){
+  .filter--detail {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+  }
+  .form-check {
+    display: block;
+  }
+}

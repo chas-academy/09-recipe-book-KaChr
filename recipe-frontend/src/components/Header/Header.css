@@ -1,11 +1,16 @@
 .App-header {
   background-color: #222;
-  height: 150px;
+  height: 100px;
   padding: 20px;
+  margin-bottom: 25px;
   color: white;
   text-align: center;
 }
 
 .App-title {
   font-size: 1.5em;
+}
+
+.nav--link {
+  justify-content: space-evenly;
 }

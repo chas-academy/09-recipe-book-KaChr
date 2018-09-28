@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-
 import { Link } from 'react-router-dom';
+import "./Recipe.css";
 
 
 export default class Recipe extends Component {
@@ -43,17 +43,18 @@ export default class Recipe extends Component {
 
   render() {
     const { recipe } = this.state;
+    const { handleClick } = this.props;
     let recipeContent;
-
+    
     if (recipe) {
       recipeContent = (
         <div>
           <Link to={{ pathname: `/recipe/${recipe.id}`, state: { recipe: recipe.recipeName } }}>
           <h4>{recipe.name}</h4>
-          <img src={recipe.images[0].hostedMediumUrl} alt={recipe.name} />
+          <img src={recipe.images[0].hostedMediumUrl} alt={recipe.name} className="recipe-img" />
           </Link>
 
-          <button type="button" className="btn btn-danger">Remove recipe from list</button>
+          <button type="button" className="btn btn-danger button--detail" onClick={(e) => { handleClick(e, recipe.id) }}>Remove recipe from list</button>
         </div>
       );
     } else {

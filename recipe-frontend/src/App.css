@@ -7,3 +7,19 @@
   flex-direction: column;
   align-items: center;
 }
+
+/* img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+} */
+
+.button--detail {
+  margin-left: .25em;
+  border: solid white; 
+  border-radius: 10px 100px / 120px;
+}
+
+ul {
+  padding: 0;
+}

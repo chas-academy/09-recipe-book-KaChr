@@ -9,3 +9,9 @@ ul {
 .image--height {
   height: 8rem;
 }
+
+@media screen and (max-width: 600px){
+  .img--detail{
+    width: 100%
+  }
+}

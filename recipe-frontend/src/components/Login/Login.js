@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { errorHandler } from "../../helpers/errorHandler";
+import { getUser } from "../../helpers/getUser";
 
 class Login extends Component {
   constructor (props) {
     super(props);
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      errorIsActive: false
     };
 
     this.onSubmit = this.onSubmit.bind(this);
@@ -30,12 +33,24 @@ class Login extends Component {
         },
         body: JSON.stringify(user)
       })
-      .then(res => res.json())
+      .then(res => {
+        if (res.status >= 400 && res.status < 600) {
+          throw new Error("Bad response from server");
+        }
+        return res.json()
+      })
       .then((result) => {
         if (result.data.access_token) {
           sessionStorage.setItem('credentials', JSON.stringify(result.data));
+          getUser();
+
           this.props.history.push('/');
         }
+      })
+      .catch(err => {
+        this.setState({
+          errorIsActive: true
+        })
       })
     }
   }
@@ -63,7 +78,8 @@ class Login extends Component {
               <label>Password</label>
               <input type="password" className="form-control" name="password" placeholder="Password" onChange={this.onChange}/>
             </div>
-            <button type="submit" value="login" className="btn btn-primary">Login</button>
+            {this.state.errorIsActive ? errorHandler('Invalid username or password. Please try again!') : ''}
+            <button type="submit" value="login" className="btn btn-primary button--detail">Login</button>
           </form>
           <Link to="/register">Sign up</Link>
         </div>

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Redirect } from "react-router-dom";
 
 class Register extends Component {
   constructor(props) {
@@ -33,9 +32,10 @@ class Register extends Component {
         },
         body: JSON.stringify(user)
       })
-      .catch(err => console.log(err))
       .then(user => {
         this.props.history.push("/");
+      })
+      .catch(err => { console.log(err)
       })
     }
   }
@@ -45,13 +45,9 @@ class Register extends Component {
     this.setState({
       [e.target.name]: e.target.value
     });
-    console.log("heej");
   }
 
   render() {
-    // if (sessionStorage.getItem('user')){
-    //   return (<Redirect to={'/'}/>)
-    // }
 
     return (
       <div>
@@ -86,7 +82,7 @@ class Register extends Component {
               onChange={this.onChange}
             />
           </div>
-          <button type="submit" value="signup" className="btn btn-primary">
+          <button type="submit" value="signup" className="btn btn-primary button--detail">
             Sign up
           </button>
         </form>

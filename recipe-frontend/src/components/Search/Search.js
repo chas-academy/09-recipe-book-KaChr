@@ -30,7 +30,7 @@ class Search extends Component {
   render() {
     return (
       <form
-        className="form-inline my-2 my-lg-0 Search"
+        className="form-inline my-2 my-lg-0 Search mr-3 ml-3"
         name="searchForm"
         onSubmit={this.onSubmit}
       >
@@ -43,7 +43,7 @@ class Search extends Component {
           ref={input => (this.query = input)}
           placeholder="Search..."
         />
-        <button className="btn btn-success my-2 my-sm-0" type="submit">
+        <button className="btn btn-success my-2 my-sm-0 button--detail" type="submit">
           Go!
         </button>
       </form>
