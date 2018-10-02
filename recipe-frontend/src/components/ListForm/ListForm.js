@@ -27,7 +27,7 @@ class ListForm extends Component {
     const user = await getUser();
 
     if (this.state.title) {
-      fetch("/list", {
+      fetch(`${process.env.REACT_APP_API_BASE_URL}/list`, {
         method: "POST",
         credentials: "include",
         headers: {

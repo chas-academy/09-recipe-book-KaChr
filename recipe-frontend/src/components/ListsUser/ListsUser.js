@@ -18,7 +18,7 @@ class ListsUser extends Component {
     const user = await getUser();
     const credentials = JSON.parse(sessionStorage.getItem("credentials"));
 
-    fetch(`/user/${user.data.id}/lists`, {
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/user/${user.data.id}/lists`, {
       method: "GET",
       headers: {
         "Accept": "application/json",
@@ -55,7 +55,7 @@ class ListsUser extends Component {
     const user = await getUser();
     const credentials = JSON.parse(sessionStorage.getItem("credentials"));
 
-    fetch(`/user/${user.data.id}/lists/${listId}`, {
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/user/${user.data.id}/lists/${listId}`, {
       method: "DELETE",
       headers: {
         "Accept": "application/json",

@@ -46,7 +46,7 @@ class RecipeDetails extends Component {
     const credentials = JSON.parse(sessionStorage.getItem("credentials"));
     const user = JSON.parse(sessionStorage.getItem("user"));
 
-    fetch(`/user/${user.data.id}/lists`, {
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/user/${user.data.id}/lists`, {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -89,7 +89,7 @@ class RecipeDetails extends Component {
   addToList(recipe) {
     const credentials = JSON.parse(sessionStorage.getItem("credentials"));
 
-    fetch(`/list/${this.state.activeList.id}`, {
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/list/${this.state.activeList.id}`, {
       method: "PUT",
       headers: {
         Accept: "application/json",

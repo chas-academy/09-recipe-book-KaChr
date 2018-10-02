@@ -17,7 +17,7 @@ class ListDetails extends Component {
   handleClick(e, recipeId) {  
     const credentials = JSON.parse(sessionStorage.getItem("credentials"));
 
-    return fetch(`/list/${this.state.list.id}`, {
+    return fetch(`${process.env.REACT_APP_API_BASE_URL}/list/${this.state.list.id}`, {
       method: "PUT",
       headers: {
         "Accept": "application/json",
@@ -55,7 +55,7 @@ class ListDetails extends Component {
   async componentDidMount() {
     const credentials = JSON.parse(sessionStorage.getItem("credentials"));
 
-    fetch(`/user/${this.props.match.params.userId}/lists/${this.props.match.params.recipeListId}`, {
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/user/${this.props.match.params.userId}/lists/${this.props.match.params.recipeListId}`, {
       method: "GET",
       headers: {
         "Accept": "application/json",

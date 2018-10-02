@@ -24,7 +24,7 @@ class Register extends Component {
     };
 
     if (this.state.name && this.state.email && this.state.password) {
-      fetch("/auth/register", {
+      fetch(`${process.env.REACT_APP_API_BASE_URL}/auth/register`, {
         method: "POST",
         headers: {
           Accept: "application/json",

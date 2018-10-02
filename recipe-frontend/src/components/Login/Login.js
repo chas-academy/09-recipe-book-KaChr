@@ -25,7 +25,7 @@ class Login extends Component {
     };
 
     if(this.state.email && this.state.password){
-      fetch("/auth/login", {
+      fetch(`${process.env.REACT_APP_API_BASE_URL}/auth/login`, {
         method: 'POST',
         headers: {
           "Accept": "application/json",
