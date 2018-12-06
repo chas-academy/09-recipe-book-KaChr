@@ -1,6 +1,9 @@
 import React from 'react'
-import { Route, Redirect } from 'react-router-dom';
+import { Route, Redirect, withRouter } from 'react-router-dom';
 import { isLoggedIn } from '../../helpers/isLoggedIn';
+// import AuthHelperMethods from '../../components/AuthHelperMethods/AuthHelperMethods';
+
+// const Auth = new AuthHelperMethods;
 
 const PrivateRoute = ({ component: Component, ...rest }) => 
   <Route
@@ -15,4 +18,4 @@ const PrivateRoute = ({ component: Component, ...rest }) =>
           />}
   />;
 
-export default PrivateRoute;
+export default withRouter(PrivateRoute);

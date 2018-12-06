@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import './ShoppingList.css';
+import withAuth from '../../helpers/withAuth';
 
 class ShoppingList extends Component {
   constructor(props) {
@@ -35,4 +36,4 @@ class ShoppingList extends Component {
   }
 }
 
-export default ShoppingList;
+export default withAuth(ShoppingList);

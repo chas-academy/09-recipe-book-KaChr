@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Recipe from '../Recipe/Recipe';
+import withAuth from "../../helpers/withAuth";
 import './ListDetails.css';
 
 class ListDetails extends Component {
@@ -91,7 +92,7 @@ class ListDetails extends Component {
       )
     } else {
       view = (
-        <h1>Loading...</h1>
+        <h1>No recipe added yet.</h1>
       );
     }
     return (
@@ -102,4 +103,4 @@ class ListDetails extends Component {
   }
 }
 
-export default ListDetails;
+export default withAuth(ListDetails);

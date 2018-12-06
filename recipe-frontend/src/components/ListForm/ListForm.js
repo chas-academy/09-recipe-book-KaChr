@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { getUser } from "../../helpers/getUser";
+import withAuth from "../../helpers/withAuth";
+
 class ListForm extends Component {
   constructor() {
     super();
@@ -21,7 +23,7 @@ class ListForm extends Component {
 
   async onSubmit(e) {
     e.preventDefault();
-
+    
     const credentials = JSON.parse(sessionStorage.getItem("credentials"));
     const data = { title: this.state.title };
     const user = await getUser();
@@ -67,4 +69,4 @@ class ListForm extends Component {
   }
 }
 
-export default ListForm;
+export default withAuth(ListForm);

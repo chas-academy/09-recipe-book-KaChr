@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./RecipeDetails.css";
 import { successHandler } from "../../helpers/successHandler";
+import withAuth from "../../helpers/withAuth";
 
 class RecipeDetails extends Component {
   constructor() {
@@ -40,13 +41,16 @@ class RecipeDetails extends Component {
  }
 
   async componentDidMount() {
-    let yummlyAppKey = process.env.REACT_APP_YUMMLY_APP_KEY;
-    let yummlyAppId = process.env.REACT_APP_YUMMLY_APP_ID;
+    const yummlyAppKey = process.env.REACT_APP_YUMMLY_APP_KEY;
+    const yummlyAppId = process.env.REACT_APP_YUMMLY_APP_ID;
+  //  TODO 
+    const url = process.env.REACT_APP_API_BASE_URL;
 
+    
     const credentials = JSON.parse(sessionStorage.getItem("credentials"));
-    const user = JSON.parse(sessionStorage.getItem("user"));
+    const userId = credentials.user.id;
 
-    fetch(`${process.env.REACT_APP_API_BASE_URL}/user/${user.data.id}/lists`, {
+    fetch(`${url}/user/${userId}/lists`, {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -219,4 +223,4 @@ class RecipeDetails extends Component {
   }
 }
 
-export default RecipeDetails;
+export default withAuth(RecipeDetails);

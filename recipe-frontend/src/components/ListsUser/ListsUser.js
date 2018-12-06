@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 import { getUser } from "../../helpers/getUser";
+import withAuth from '../../helpers/withAuth';
 import './ListUser.css';
 
 class ListsUser extends Component {
@@ -96,4 +97,4 @@ class ListsUser extends Component {
   }
 }
 
-export default ListsUser;
+export default withAuth(ListsUser);

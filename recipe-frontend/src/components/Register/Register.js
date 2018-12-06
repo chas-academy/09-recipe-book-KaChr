@@ -1,7 +1,12 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+// import { isLoggedIn } from "../../helpers/isLoggedIn";
+import AuthHelperMethods from '../../components/AuthHelperMethods/AuthHelperMethods';
 
 class Register extends Component {
+
+  Auth = new AuthHelperMethods();
+
   constructor(props) {
     super(props);
     this.state = {
@@ -12,6 +17,13 @@ class Register extends Component {
 
     this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
+  }
+
+  componentDidMount() {
+    console.log(this.Auth.isLoggedIn());
+    if(this.Auth.isLoggedIn()){
+        this.props.history.push('/Home')
+    }
   }
 
   onSubmit(e) {
@@ -27,13 +39,14 @@ class Register extends Component {
       fetch(`${process.env.REACT_APP_API_BASE_URL}/auth/register`, {
         method: "POST",
         headers: {
-          Accept: "application/json",
+          "Accept": "application/json",
           "Content-Type": "application/json"
         },
         body: JSON.stringify(user)
       })
-      .then(user => {
-        this.props.history.push("/");
+      .then((user) => {
+        console.log(user);
+        this.props.history.push("/login");
       })
       .catch(err => { console.log(err)
       })

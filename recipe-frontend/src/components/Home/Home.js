@@ -1,9 +1,12 @@
 import React, { Component } from "react";
-import "./Home.css";
-
+import withAuth from "../../helpers/withAuth";
 import Search from "../Search/Search";
 import SearchResults from "../SearchResults/SearchResults";
 import SearchFilter from "../SearchFilter/SearchFilter";
+
+import "./Home.css";
+
+// import AuthHelperMethods from './components/AuthHelperMethods';
 
 class Home extends Component {
   constructor() {
@@ -12,6 +15,8 @@ class Home extends Component {
       results: [],
       query: "cherry pie"
     };
+
+    // Auth = new AuthHelperMethods();
 
     this.searchRecipe = this.searchRecipe.bind(this);
     this.filterResults = this.filterResults.bind(this);
@@ -87,4 +92,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default withAuth(Home);
